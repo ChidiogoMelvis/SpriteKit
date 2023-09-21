@@ -1,1 +1,1 @@
-# SpriteKit
+Spritekit Framework - Creating a project using Spritekit framework and leveraging the use of animations to design a 2D game. 
