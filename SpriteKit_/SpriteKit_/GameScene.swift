@@ -6,22 +6,15 @@
 //
 
 import SpriteKit
-import GameplayKit
 
 class GameScene: SKScene {
+    
+    var backGroundImage = SKSpriteNode(imageNamed: "background")
+    
     override func didMove(to view: SKView) {
-        
-        backgroundColor = .brown
-        
-        let icon = SKSpriteNode(imageNamed: "icon")
-        icon.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        addChild(icon)
-        
-        
-        let circlePath = UIBezierPath(ovalIn: CGRect(x: -100, y: -100, width: 200, height: 200))
-        let followPath = SKAction.follow(circlePath.cgPath, asOffset: false, orientToPath: false, speed: 100)
-        let repeatForever = SKAction.repeatForever(followPath)
-        icon.run(repeatForever)
+       
+        backGroundImage.position = CGPoint(x: self.size.height/2, y: self.frame.width/2)
+        self.addChild(backGroundImage)
     }
     
     
