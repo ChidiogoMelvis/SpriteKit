@@ -14,15 +14,17 @@ class GameScene: SKScene {
     var nodeIcon = SKSpriteNode(imageNamed: "snake")
     
     override func didMove(to view: SKView) {
-       
+       //MARK: - Positioning the background image
         backGroundImage.position = CGPoint(x: 0, y: 0)
         backGroundImage.size.width = self.size.width
         backGroundImage.size.height = self.size.height
         backGroundImage.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         addChild(backGroundImage)
         backGroundImage.scene?.scaleMode = .aspectFill
         backGroundImage.zPosition = -1
+        
+        
+        //MARK: - Positioning the icon
         nodeIcon.zPosition = 1
         nodeIcon.color = SKColor.black
         nodeIcon.colorBlendFactor = 1.0
