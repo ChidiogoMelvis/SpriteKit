@@ -41,16 +41,16 @@ class GameScene: SKScene {
        addChild(nodeIcon ?? node)
         
        //MARK: - Animate the icon
-        animateSnake()
+        //animateSnake()
     }
     
-    func animateSnake() {
-        let animateFrames = [walkingFrames]
-        let walkingAnimation = SKAction.animate(with: animateFrames, timePerFrame: 0.1)
-        let repeatAction = SKAction.repeatForever(walkingAnimation)
-        nodeIcon?.run(repeatAction, withKey: "walking")
-        nodeIcon?.removeAction(forKey: "walking")
-    }
+//    func animateSnake() {
+//        let animateFrames = [walkingFrames]
+//        let walkingAnimation = SKAction.animate(with: animateFrames, timePerFrame: 0.1)
+//        let repeatAction = SKAction.repeatForever(walkingAnimation)
+//        nodeIcon?.run(repeatAction, withKey: "walking")
+//        nodeIcon?.removeAction(forKey: "walking")
+//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
