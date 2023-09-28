@@ -11,15 +11,15 @@ class GameScene: SKScene {
     
     var backGroundImage = SKSpriteNode(imageNamed: "background")
     
-    var nodeIcon: SKSpriteNode?
+    var iconNode: SKSpriteNode?
     
     var node = SKSpriteNode(imageNamed: "")
     
-    var walkingFrames = SKTexture(imageNamed: "snake")
+    var walkingFrames = SKTexture(imageNamed: "snakeIcon")
     
    public override func didMove(to view: SKView) {
         
-       nodeIcon = SKSpriteNode(texture: walkingFrames)
+       iconNode = SKSpriteNode(texture: walkingFrames)
         
        //MARK: - Positioning the background image
         backGroundImage.position = CGPoint(x: 0, y: 0)
@@ -32,44 +32,39 @@ class GameScene: SKScene {
         
         
         //MARK: - Positioning the icon
-       nodeIcon?.zPosition = 1
-       nodeIcon?.color = SKColor.black
-        nodeIcon?.colorBlendFactor = 1.0
-        nodeIcon?.position = CGPoint(x: size.width * 0.0, y: size.height * 0.1)
+       iconNode?.zPosition = 1
+       iconNode?.color = SKColor.black
+        iconNode?.colorBlendFactor = 1.0
+        iconNode?.position = CGPoint(x: size.width * 0.0, y: size.height * 0.1)
         let iconSize = CGSize(width: 50, height: 50)
-        nodeIcon?.size = iconSize
-       addChild(nodeIcon ?? node)
+        iconNode?.size = iconSize
+       addChild(iconNode ?? node)
         
        //MARK: - Animate the icon
-        //animateSnake()
+        animateSnake()
     }
     
-//    func animateSnake() {
-//        let animateFrames = [walkingFrames]
-//        let walkingAnimation = SKAction.animate(with: animateFrames, timePerFrame: 0.1)
-//        let repeatAction = SKAction.repeatForever(walkingAnimation)
-//        nodeIcon?.run(repeatAction, withKey: "walking")
-//        nodeIcon?.removeAction(forKey: "walking")
-//    }
+    func animateSnake() {
+        let shakeAction = SKAction.sequence([SKAction.rotate(byAngle: CGFloat.pi/5.0, duration: 0.8),
+        SKAction.rotate(byAngle: -CGFloat.pi/5.0, duration: 0.8)])
+        let shakeForever = SKAction.repeatForever(shakeAction)
+        iconNode?.run(shakeForever)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            nodeIcon?.position.x = (location.x)
-            nodeIcon?.position.y = (location.y)
+            iconNode?.position.x = (location.x)
+            iconNode?.position.y = (location.y)
         }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
             let location = touch.location(in: self)
-            nodeIcon?.position.x = (location.x)
-            nodeIcon?.position.y = (location.y)
+            iconNode?.position.x = (location.x)
+            iconNode?.position.y = (location.y)
         }
     }
-    
-//    override func update(_ currentTime: TimeInterval) {
-//        super.update(currentTime)
-//    }
     
 }
