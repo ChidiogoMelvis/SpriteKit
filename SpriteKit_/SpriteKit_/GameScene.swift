@@ -17,11 +17,11 @@ class GameScene: SKScene {
     
     var walkingFrames = SKTexture(imageNamed: "snakeIcon")
     
-   public override func didMove(to view: SKView) {
+    public override func didMove(to view: SKView) {
         
-       iconNode = SKSpriteNode(texture: walkingFrames)
+        iconNode = SKSpriteNode(texture: walkingFrames)
         
-       //MARK: - Positioning the background image
+        //MARK: - Positioning the background image
         backGroundImage.position = CGPoint(x: 0, y: 0)
         backGroundImage.size.width = self.size.width
         backGroundImage.size.height = self.size.height
@@ -32,23 +32,15 @@ class GameScene: SKScene {
         
         
         //MARK: - Positioning the icon
-       iconNode?.zPosition = 1
-       iconNode?.color = SKColor.black
+        iconNode?.zPosition = 1
+        iconNode?.color = SKColor.black
         iconNode?.colorBlendFactor = 1.0
         iconNode?.position = CGPoint(x: size.width * 0.0, y: size.height * 0.1)
         let iconSize = CGSize(width: 50, height: 50)
         iconNode?.size = iconSize
-       addChild(iconNode ?? node)
+        addChild(iconNode ?? node)
         
-       //MARK: - Animate the icon
-        animateSnake()
-    }
-    
-    func animateSnake() {
-        let shakeAction = SKAction.sequence([SKAction.rotate(byAngle: CGFloat.pi/5.0, duration: 0.8),
-        SKAction.rotate(byAngle: -CGFloat.pi/5.0, duration: 0.8)])
-        let shakeForever = SKAction.repeatForever(shakeAction)
-        iconNode?.run(shakeForever)
+        //MARK: - Animate the icon
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
