@@ -14,7 +14,7 @@ class GameScene: SKScene {
     var snakeNode = SKSpriteNode(imageNamed: "snakeIcon")
     
     var antsNodeArray = ["antsIcon1", "antsIcon2", "antsIcon3", "antsIcon4", "antsIcon5", "antsIcon6", "antsIcon7", "antsIcon8", "antsIcon9", "antsIcon10"]
-    
+   
     public override func didMove(to view: SKView) {
         settingBackgroundImage()
         createSnakeNode()
@@ -55,6 +55,7 @@ class GameScene: SKScene {
             antsNode.size = iconSize
             addChild(antsNode)
         }
+        
     }
 
     //MARK: - Animate the icon
