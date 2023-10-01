@@ -14,7 +14,7 @@ class GameScene: SKScene {
     var snakeNode = SKSpriteNode(imageNamed: "snakeIcon")
     
     var antsNodeArray = ["antsIcon1", "antsIcon2", "antsIcon3", "antsIcon4", "antsIcon5", "antsIcon6", "antsIcon7", "antsIcon8", "antsIcon9", "antsIcon10"]
-   
+    
     public override func didMove(to view: SKView) {
         settingBackgroundImage()
         createSnakeNode()
@@ -50,14 +50,28 @@ class GameScene: SKScene {
             antsNode.zPosition = 1
             antsNode.color = SKColor.black
             antsNode.colorBlendFactor = 1.0
+            antsNode.anchorPoint = CGPoint(x: 2.5, y: 2.5)
             antsNode.position = CGPoint(x: CGFloat.random(in: 0..<200), y: CGFloat.random(in: 0..<300))
             let iconSize = CGSize(width: 30, height: 30)
             antsNode.size = iconSize
             addChild(antsNode)
+            
+            let yourDistance: CGFloat = 300.0
+            let yourDuration: TimeInterval = 2.0
+            let moveOffscreen = SKAction.move(by: CGVector(dx: 0, dy: -yourDistance), duration: yourDuration)
+            let moveOnScreen = SKAction.move(by: CGVector(dx: 0, dy: yourDistance), duration: yourDuration)
+            let moveSequence = SKAction.sequence([moveOffscreen, SKAction.run{
+                
+            },
+                                                  moveOnScreen, SKAction.run{
+                
+            }    ])
+            let repeatAction = SKAction.repeatForever(moveSequence)
+            antsNode.run(repeatAction)
         }
         
     }
-
+    
     //MARK: - Animate the icon
     
     //MARK: - The Method that trigger the movement of the icon
