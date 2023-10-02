@@ -78,8 +78,6 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-//            snakeNode.position.x = (location.x)
-//            snakeNode.position.y = (location.y)
         }
         shootAnts()
     }
@@ -92,7 +90,7 @@ class GameScene: SKScene {
             snakeNode.position.y = (location.y)
         }
     }
-
+    //MARK: - This function shoots at the ants when its called in the touchbegan method
     func shootAnts() {
         let projectile = SKSpriteNode(color: .red, size: CGSize(width: 20, height: 20))
         projectile.position = snakeNode.position
