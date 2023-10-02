@@ -37,7 +37,7 @@ class GameScene: SKScene {
         snakeNode.zPosition = 1
         snakeNode.color = SKColor.black
         snakeNode.colorBlendFactor = 1.0
-        snakeNode.position = CGPoint(x: -120, y: size.height * 0.1)
+        snakeNode.position = CGPoint(x: -120, y: 50)
         let iconSize = CGSize(width: 90, height: 90)
         snakeNode.size = iconSize
         addChild(snakeNode)
@@ -78,11 +78,12 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            snakeNode.position.x = (location.x)
-            snakeNode.position.y = (location.y)
+//            snakeNode.position.x = (location.x)
+//            snakeNode.position.y = (location.y)
         }
+        shootAnts()
     }
-    
+
     //MARK: - The Method that trigger the movement of the icon
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = touches.first {
@@ -91,5 +92,18 @@ class GameScene: SKScene {
             snakeNode.position.y = (location.y)
         }
     }
-    
+
+    func shootAnts() {
+        let projectile = SKSpriteNode(color: .red, size: CGSize(width: 20, height: 20))
+        projectile.position = snakeNode.position
+        addChild(projectile)
+        
+        let destination = CGPoint(x: size.width, y: snakeNode.position.y)
+        let moveAction = SKAction.move(to: destination, duration: 1.0)
+        
+        let removeAction = SKAction.removeFromParent()
+        
+        projectile.run(SKAction.sequence([moveAction, removeAction]))
+    }
+
 }
