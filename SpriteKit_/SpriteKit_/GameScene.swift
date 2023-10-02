@@ -79,7 +79,7 @@ class GameScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
         }
-        shootAnts()
+        shootAntsNode()
     }
 
     //MARK: - The Method that trigger the movement of the icon
@@ -91,17 +91,39 @@ class GameScene: SKScene {
         }
     }
     //MARK: - This function shoots at the ants when its called in the touchbegan method
-    func shootAnts() {
+    func shootAntsNode() {
         let projectile = SKSpriteNode(color: .red, size: CGSize(width: 20, height: 20))
         projectile.position = snakeNode.position
         addChild(projectile)
-        
+
         let destination = CGPoint(x: size.width, y: snakeNode.position.y)
         let moveAction = SKAction.move(to: destination, duration: 1.0)
-        
+
         let removeAction = SKAction.removeFromParent()
-        
+
         projectile.run(SKAction.sequence([moveAction, removeAction]))
     }
+    
+//    func shootAntsNode() {
+//        // Create the projectile (e.g., a bullet)
+//        let projectile = SKSpriteNode(color: .red, size: CGSize(width: 10, height: 10))
+//        projectile.position = snakeNode.position
+//        addChild(projectile)
+//
+//        // Define the velocity (speed and direction) of the projectile (to the right)
+//        let destination = CGPoint(x: size.width, y: snakeNode.position.y)
+//        let moveAction = SKAction.move(to: destination, duration: 1.0)
+//
+//        // Create an action to remove the projectile when it's touched
+//        let removeOnTouchAction = SKAction.run {
+//            projectile.removeFromParent()
+//        }
+//
+//        // Combine the movement action and the removal action
+//        let sequence = SKAction.sequence([moveAction, removeOnTouchAction])
+//
+//        // Run the sequence of actions
+//        projectile.run(sequence)
+//    }
 
 }
