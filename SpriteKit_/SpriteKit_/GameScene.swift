@@ -93,7 +93,6 @@ class GameScene: SKScene {
     
     //MARK: - This function shoots at the ants when its called in the touchbegan method
     func shootAntsNode() {
-        //let projectile = SKSpriteNode(color: .red, size: CGSize(width: 30, height: 30))
         let projectile = SKSpriteNode(imageNamed: "fireIcon")
         projectile.size = CGSize(width: 30, height: 30)
         projectile.position = snakeNode.position
@@ -107,7 +106,6 @@ class GameScene: SKScene {
         projectile.name = "projectile"
         
         projectile.run(SKAction.sequence([moveAction, removeAction]))
-        
     }
     
 }
