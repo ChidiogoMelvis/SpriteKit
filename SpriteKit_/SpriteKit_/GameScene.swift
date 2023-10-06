@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var backGroundImage = SKSpriteNode(imageNamed: "background")
     
@@ -15,9 +15,9 @@ class GameScene: SKScene {
     
     var antsNodeArray = ["antsIcon1", "antsIcon2", "antsIcon3", "antsIcon4", "antsIcon5", "antsIcon6", "antsIcon7", "antsIcon8", "antsIcon9", "antsIcon10"]
     
-    var shouldStartRemovingImages = false
-    
     public override func didMove(to view: SKView) {
+        self.physicsWorld.contactDelegate = self
+        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         settingBackgroundImage()
         createSnakeNode()
         createAntsNode()
@@ -74,7 +74,15 @@ class GameScene: SKScene {
         
     }
     
-    //MARK: - Animate the icon
+    func didBegin(_ contact: SKPhysicsContact) {
+        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+
+        if collision == 3 { // Snake and ant collision
+            contact.bodyA.node?.removeFromParent()
+            contact.bodyB.node?.removeFromParent()
+        }
+    }
+
     
     //MARK: - The Method that trigger the movement of the icon
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -90,13 +98,6 @@ class GameScene: SKScene {
             let location = touch.location(in: self)
             snakeNode.position.x = (location.x)
             //snakeNode.position.y = (location.y)
-        }
-    }
-    
-    override func update(_ currentTime: TimeInterval) {
-        if shouldStartRemovingImages {
-            removeImagesOneAfterAnother()
-            shouldStartRemovingImages = true
         }
     }
     
@@ -116,21 +117,6 @@ class GameScene: SKScene {
         
         projectile.run(SKAction.sequence([moveAction, removeAction]))
         
-    }
-    
-    func removeImagesOneAfterAnother() {
-        if let imageFileName = antsNodeArray.first {
-            let imageNodes = SKSpriteNode(imageNamed: imageFileName)
-            
-            if let index = children.firstIndex(of: imageNodes) {
-                let removeAction = SKAction.removeFromParent()
-                let sequence = SKAction.sequence([removeAction, SKAction.wait(forDuration: 1.0)])
-                children[index].run(sequence) {
-                    self.antsNodeArray.removeFirst()
-                    self.removeImagesOneAfterAnother()
-                }
-            }
-        }
     }
     
 }
