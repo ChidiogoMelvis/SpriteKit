@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene {
     
     var backGroundImage = SKSpriteNode(imageNamed: "background")
     
@@ -16,8 +16,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var antsNodeArray = ["antsIcon1", "antsIcon2", "antsIcon3", "antsIcon4", "antsIcon5", "antsIcon6", "antsIcon7", "antsIcon8", "antsIcon9", "antsIcon10"]
     
     public override func didMove(to view: SKView) {
-        self.physicsWorld.contactDelegate = self
-        self.physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         settingBackgroundImage()
         createSnakeNode()
         createAntsNode()
@@ -73,16 +71,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
     }
-    
-    func didBegin(_ contact: SKPhysicsContact) {
-        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-
-        if collision == 3 { // Snake and ant collision
-            contact.bodyA.node?.removeFromParent()
-            contact.bodyB.node?.removeFromParent()
-        }
-    }
-
     
     //MARK: - The Method that trigger the movement of the icon
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
