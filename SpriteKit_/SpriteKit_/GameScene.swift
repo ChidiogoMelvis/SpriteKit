@@ -15,6 +15,8 @@ class GameScene: SKScene {
     
     var antsNodeArray = ["antsIcon1", "antsIcon2", "antsIcon3", "antsIcon4", "antsIcon5", "antsIcon6", "antsIcon7", "antsIcon8", "antsIcon9", "antsIcon10"]
     
+    var shouldStartRemovingImages = false
+    
     public override func didMove(to view: SKView) {
         settingBackgroundImage()
         createSnakeNode()
@@ -87,7 +89,14 @@ class GameScene: SKScene {
         if let touch = touches.first {
             let location = touch.location(in: self)
             snakeNode.position.x = (location.x)
-            snakeNode.position.y = (location.y)
+            //snakeNode.position.y = (location.y)
+        }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if shouldStartRemovingImages {
+            removeImagesOneAfterAnother()
+            shouldStartRemovingImages = true
         }
     }
     
@@ -106,6 +115,22 @@ class GameScene: SKScene {
         projectile.name = "projectile"
         
         projectile.run(SKAction.sequence([moveAction, removeAction]))
+        
+    }
+    
+    func removeImagesOneAfterAnother() {
+        if let imageFileName = antsNodeArray.first {
+            let imageNodes = SKSpriteNode(imageNamed: imageFileName)
+            
+            if let index = children.firstIndex(of: imageNodes) {
+                let removeAction = SKAction.removeFromParent()
+                let sequence = SKAction.sequence([removeAction, SKAction.wait(forDuration: 1.0)])
+                children[index].run(sequence) {
+                    self.antsNodeArray.removeFirst()
+                    self.removeImagesOneAfterAnother()
+                }
+            }
+        }
     }
     
 }
