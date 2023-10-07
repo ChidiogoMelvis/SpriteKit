@@ -8,7 +8,7 @@
 import SpriteKit
 
 class GameScene: SKScene {
-    
+   
     var backGroundImage = SKSpriteNode(imageNamed: "background")
     
     var snakeNode = SKSpriteNode(imageNamed: "snakeIcon")
@@ -54,6 +54,7 @@ class GameScene: SKScene {
             antsNode.position = CGPoint(x: CGFloat.random(in: 0..<200), y: CGFloat.random(in: 0..<300))
             let iconSize = CGSize(width: 30, height: 30)
             antsNode.size = iconSize
+            antsNode.removeFromParent()
             addChild(antsNode)
             
             let yourDistance: CGFloat = 300.0
@@ -102,7 +103,7 @@ class GameScene: SKScene {
         let removeAction = SKAction.removeFromParent()
         
         projectile.name = "projectile"
-    
+        
         projectile.run(SKAction.sequence([moveAction, removeAction]))
         
     }
