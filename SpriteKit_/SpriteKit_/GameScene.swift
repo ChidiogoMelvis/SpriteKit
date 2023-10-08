@@ -7,8 +7,8 @@
 
 import SpriteKit
 
-class GameScene: SKScene {
-   
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    
     var backGroundImage = SKSpriteNode(imageNamed: "background")
     
     var snakeNode = SKSpriteNode(imageNamed: "snakeIcon")
@@ -16,6 +16,7 @@ class GameScene: SKScene {
     var antsNodeArray = ["antsIcon1", "antsIcon2", "antsIcon3", "antsIcon4", "antsIcon5", "antsIcon6", "antsIcon7", "antsIcon8", "antsIcon9", "antsIcon10"]
     
     public override func didMove(to view: SKView) {
+        physicsWorld.contactDelegate = self
         settingBackgroundImage()
         createSnakeNode()
         createAntsNode()
@@ -44,9 +45,9 @@ class GameScene: SKScene {
     }
     
     //MARK: - Positioning the icon
-    func createAntsNode() {
+    public func createAntsNode() {
         for i in antsNodeArray {
-            let antsNode = SKSpriteNode(imageNamed: i)
+            var antsNode = SKSpriteNode(imageNamed: i)
             antsNode.zPosition = 1
             antsNode.color = SKColor.black
             antsNode.colorBlendFactor = 1.0
@@ -77,6 +78,7 @@ class GameScene: SKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            
         }
         shootAntsNode()
     }
