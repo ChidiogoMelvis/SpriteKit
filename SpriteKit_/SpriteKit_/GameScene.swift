@@ -20,6 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         settingBackgroundImage()
         createSnakeNode()
         createAntsNode()
+        self.isUserInteractionEnabled = true
     }
     
     //MARK: - Positioning the background image
@@ -78,7 +79,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
-            
         }
         shootAntsNode()
     }
@@ -97,16 +97,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let projectile = SKSpriteNode(imageNamed: "fireIcon")
         projectile.size = CGSize(width: 40, height: 40)
         projectile.position = snakeNode.position
-        addChild(projectile)
         
         let destination = CGPoint(x: size.width, y: snakeNode.position.y)
-        let moveAction = SKAction.move(to: destination, duration: 1.0)
+        let moveAction = SKAction.move(to: destination, duration: 0.5)
         
         let removeAction = SKAction.removeFromParent()
         
         projectile.name = "projectile"
         
-        projectile.run(SKAction.sequence([moveAction, removeAction]))
+        let sequence = SKAction.sequence([moveAction, removeAction])
+        
+        projectile.run(sequence)
+        addChild(projectile)
         
     }
     
