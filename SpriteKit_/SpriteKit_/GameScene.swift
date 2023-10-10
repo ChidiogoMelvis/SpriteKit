@@ -20,7 +20,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         settingBackgroundImage()
         createSnakeNode()
         createAntsNode()
-        self.isUserInteractionEnabled = true
+        //self.isUserInteractionEnabled = true
     }
     
     //MARK: - Positioning the background image
@@ -104,6 +104,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let removeAction = SKAction.removeFromParent()
         
         projectile.name = "projectile"
+        
+        projectile.isUserInteractionEnabled = true
         
         let sequence = SKAction.sequence([moveAction, removeAction])
         
