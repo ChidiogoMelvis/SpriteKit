@@ -20,7 +20,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         settingBackgroundImage()
         createSnakeNode()
         createAntsNode()
-        //self.isUserInteractionEnabled = true
     }
     
     //MARK: - Positioning the background image
@@ -48,7 +47,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: - Positioning the icon
     public func createAntsNode() {
         for i in antsNodeArray {
-            var antsNode = SKSpriteNode(imageNamed: i)
+            let antsNode = SKSpriteNode(imageNamed: i)
             antsNode.zPosition = 1
             antsNode.color = SKColor.black
             antsNode.colorBlendFactor = 1.0
@@ -78,7 +77,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     //MARK: - The Method that trigger the movement of the icon
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            let location = touch.location(in: self)
+            _ = touch.location(in: self)
         }
         shootAntsNode()
     }
@@ -88,7 +87,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if let touch = touches.first {
             let location = touch.location(in: self)
             snakeNode.position.x = (location.x)
-            //snakeNode.position.y = (location.y)
         }
     }
     
@@ -111,7 +109,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         projectile.run(sequence)
         addChild(projectile)
-        
     }
     
 }
